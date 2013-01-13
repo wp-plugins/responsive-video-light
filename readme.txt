@@ -62,7 +62,7 @@ If this is a Vimeo video, ensure you have permission for the video to be embedde
 
 = Video is not resizing =
 
-Make sure that the `<div /`> that contains the video has a width set and that it is a percentage and not a fixed width.
+Make sure that the `<div />` that contains the video has a width set and that it is a percentage and not a fixed width.
 
 == Contributing ==
 
