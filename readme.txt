@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: wknechtel, kburgoine
+Contributors: billknechtel, kburgoine
 Tags: youtube, you tube, vimeo, responsive, video, embed
 Requires at least: 3.0
 Tested up to: 3.5
