@@ -7,7 +7,7 @@ Stable tag: 1.0.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This will display a responsive YouTube or Vimeo video in pages or posts - anywhere shorttags can be used (even the "text" sidebar widget that comes with WordPress). 
+This will display a responsive YouTube or Vimeo video in pages or posts - anywhere shorttags can be used, including the "text" widget.
 
 == Description ==
 
