@@ -22,7 +22,7 @@ Example Usage:
 
 For a YouTube video, you can specify either the full URL to the video or just the unique video ID, like this:
 
-    [responsive_youtube http://www.youtube.com/watch?v=NbCr0UyoFJA\] 
+    [responsive_youtube http://www.youtube.com/watch?v=NbCr0UyoFJA ] 
     [responsive_youtube NbCr0UyoFJA]
 
 And if you want to specify whether or not you'd like the "related videos" to display, you can use the "rel" or "norel" parameters in the shortcode syntax, like this:
@@ -34,7 +34,7 @@ The rel and norel tags will override whatever you have set in the plugin setting
 
 Similarly, for a Vimeo video, you can use the full video player URL or just the video ID, like this:
 
-    [responsive_vimeo https://vimeo.com/29506088\] 
+    [responsive_vimeo https://vimeo.com/29506088 ] 
     [responsive_vimeo 29506088]
 
 = Requirements =
