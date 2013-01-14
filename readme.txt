@@ -3,7 +3,7 @@ Contributors: billknechtel, kburgoine
 Tags: youtube, you tube, vimeo, responsive, video, embed
 Requires at least: 3.0
 Tested up to: 3.5
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,9 @@ Make sure that the div or other block-level element that contains the video has 
 Use anonymous svn to get a current trunk copy, or build a patch against your current install, then email the patch to me for consideration.
 
 == Changelog ==
+
+= 1.0.4 =
+* Update description to fit within prescribed limits. Going to take a while to get used to the "WordPress Way"
 
 = 1.0.3 =
 * Update readme to correct minor markdown syntax issues
