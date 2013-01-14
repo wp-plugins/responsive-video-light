@@ -169,7 +169,7 @@ function rvl_contextual_help($text) {
   $screen = $_GET['page'];
 	if ($screen == 'rvl_options') {
 	$text = '<h5>Need Help With the Responsive Video Light Plugin?</h5>';
-	$text .= '<p><a href="http://bitpusher.tk/responsive-video-light">';
+	$text .= '<p><a href="http://wordpress.org/extend/plugins/responsive-video-light/">';
 	$text .= 'Check out the Documentation</a></p>';
 	}
 	return $text;
