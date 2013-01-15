@@ -70,6 +70,13 @@ Use anonymous svn to get a current trunk copy, or build a patch against your cur
 
 == Changelog ==
 
+= 1.0.6 =
+
+* Rename the css integration function so as not to interfere with the original "Rsponsive video" plugin.
+
+= 1.0.5 =
+* Update documentation markdown to interpolate closing brackets correctly where a URL is the last parameter of the shorttag.
+
 = 1.0.4 =
 * Update description to fit within prescribed limits. Going to take a while to get used to the "WordPress Way"
 
