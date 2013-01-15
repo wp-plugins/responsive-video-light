@@ -3,7 +3,7 @@
   Plugin Name: Responsive Video Light
   Plugin URI: http://bitpusher.tk/responsive-video-light
   Description: A plugin to add responsive videos to pages and posts
-  Version: 1.0.4
+  Version: 1.0.7
   Author: Bill Knechtel
   Author URI: http://bitpusher.tk
   License:	GPLv2
@@ -24,7 +24,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-function responsive_css()  {
+function rvl_css()  {
   // Register the css styling to make the video responsive:  
   wp_register_style( 
     'responsive-video-light', 
@@ -35,7 +35,7 @@ function responsive_css()  {
   ); 
   wp_enqueue_style('responsive-video-light');  
 }  
-add_action( 'wp_enqueue_scripts', 'responsive_css' );  
+add_action( 'wp_enqueue_scripts', 'rvl_css' );  
 
 //----------------------------------------------------------------------------
 // Create the admin settings page

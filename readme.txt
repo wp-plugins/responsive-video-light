@@ -3,7 +3,7 @@ Contributors: billknechtel, kburgoine
 Tags: youtube, you tube, vimeo, responsive, video, embed
 Requires at least: 3.0
 Tested up to: 3.5
-Stable tag: 1.0.4
+Stable tag: 1.0.7
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@ Example Usage:
 
 For a YouTube video, you can specify either the full URL to the video or just the unique video ID, like this:
 
-    [responsive_youtube http://www.youtube.com/watch?v=NbCr0UyoFJA\] 
+    [responsive_youtube http://www.youtube.com/watch?v=NbCr0UyoFJA ] 
     [responsive_youtube NbCr0UyoFJA]
 
 And if you want to specify whether or not you'd like the "related videos" to display, you can use the "rel" or "norel" parameters in the shortcode syntax, like this:
@@ -34,7 +34,7 @@ The rel and norel tags will override whatever you have set in the plugin setting
 
 Similarly, for a Vimeo video, you can use the full video player URL or just the video ID, like this:
 
-    [responsive_vimeo https://vimeo.com/29506088\] 
+    [responsive_vimeo https://vimeo.com/29506088 ] 
     [responsive_vimeo 29506088]
 
 = Requirements =
@@ -69,6 +69,16 @@ Make sure that the div or other block-level element that contains the video has 
 Use anonymous svn to get a current trunk copy, or build a patch against your current install, then email the patch to me for consideration.
 
 == Changelog ==
+
+= 1.0.7 =
+* Fix call_user_fun_array() error caused by renaming the css function.
+
+= 1.0.6 =
+
+* Rename the css integration function so as not to interfere with the original "Rsponsive video" plugin.
+
+= 1.0.5 =
+* Update documentation markdown to interpolate closing brackets correctly where a URL is the last parameter of the shorttag.
 
 = 1.0.4 =
 * Update description to fit within prescribed limits. Going to take a while to get used to the "WordPress Way"
