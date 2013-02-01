@@ -3,7 +3,7 @@ Contributors: billknechtel, kburgoine
 Tags: youtube, you tube, vimeo, responsive, video, embed
 Requires at least: 3.0
 Tested up to: 3.5
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,9 @@ Make sure that the div or other block-level element that contains the video has 
 Use anonymous svn to get a current trunk copy, or build a patch against your current install, then email the patch to me for consideration.
 
 == Changelog ==
+
+= 1.0.8 =
+* Fix acceptable YouTube ID character set regex.  The Hyphen is now usable as well, per user feedback. (Thanks so much!)
 
 = 1.0.7 =
 * Fix call_user_fun_array() error caused by renaming the css function.
