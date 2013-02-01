@@ -3,10 +3,10 @@
   Plugin Name: Responsive Video Light
   Plugin URI: http://bitpusher.tk/responsive-video-light
   Description: A plugin to add responsive videos to pages and posts
-  Version: 1.0.7
+  Version: 1.0.8
   Author: Bill Knechtel
   Author URI: http://bitpusher.tk
-  License:	GPLv2
+  License:  GPLv2
 
   Copyright 2013  William Knechtel
 
@@ -83,15 +83,15 @@ function rvl_plugin_options() {
   <div style="width:75%">
   <h2>Responsive Video Light Settings</h2>
   
-	<form method="post" action="options.php">
-	  <?php
-	  wp_nonce_field('update-options'); 
+  <form method="post" action="options.php">
+    <?php
+    wp_nonce_field('update-options'); 
     settings_fields('rvl_options'); 
     $options = get_option('rvl_options_field');
 
     // Our single global option
     $disable_youtube_related_videos = $options["disable_youtube_related_videos"];
-	  ?>
+    ?>
     <p>
       We supply a single global option:  Indicate to YouTube that we do or do
       not wish to have "Related Videos" displayed at the end of the playing of
@@ -109,12 +109,12 @@ function rvl_plugin_options() {
       videos displayed.
     </p>
     <p class="submit">
-  	  <input type="submit" class="button-primary" 
-  	    value="<?php _e('Save Changes') ?>" />
-  	  <input type="hidden" name="action" value="update" />
-  	</p>
-	</form>
-	
+      <input type="submit" class="button-primary" 
+        value="<?php _e('Save Changes') ?>" />
+      <input type="hidden" name="action" value="update" />
+    </p>
+  </form>
+  
   <h3>Using the Short Tags</h3>
   <h4>YouTube Videos</h4>
   <p>
@@ -167,12 +167,12 @@ function rvl_plugin_options() {
 //TODO: Update URLs when plugin is accepted to the WordPress plugin site
 function rvl_contextual_help($text) {
   $screen = $_GET['page'];
-	if ($screen == 'rvl_options') {
-	$text = '<h5>Need Help With the Responsive Video Light Plugin?</h5>';
-	$text .= '<p><a href="http://wordpress.org/extend/plugins/responsive-video-light/">';
-	$text .= 'Check out the Documentation</a></p>';
-	}
-	return $text;
+  if ($screen == 'rvl_options') {
+  $text = '<h5>Need Help With the Responsive Video Light Plugin?</h5>';
+  $text .= '<p><a href="http://wordpress.org/extend/plugins/responsive-video-light/">';
+  $text .= 'Check out the Documentation</a></p>';
+  }
+  return $text;
 }
 add_action('contextual_help', 'rvl_contextual_help', 10, 1);
 
@@ -199,9 +199,9 @@ function responsive_youtube_shortcode($attributes, $content = null) {
       break;
       default:
         //Fairly primitive extraction - might watch to beef this up
-        if (preg_match('/^http:\/\/.*(v=(\w*)).*$/', $attribute, $matches)) {
+        if (preg_match('/^http:\/\/.*(v=([-0-9a-zA-Z]*)).*$/', $attribute, $matches)) {
           $video_id = $matches[2];
-        } else if (preg_match('/^\w*$/', $attribute)) {
+        } else if (preg_match('/^[-0-9a-zA-Z]*$/', $attribute)) {
           $video_id = $attribute;
         }
       break;
@@ -215,11 +215,11 @@ function responsive_youtube_shortcode($attributes, $content = null) {
   if ($video_id) {
     $content = '
       <div class="video-wrapper"> 
-				<div class="video-container">
-				<iframe src="http://www.youtube.com/embed/'.$video_id
-				  .'?rel='.$rel_param.'" frameborder="0" allowfullscreen></iframe>
-				</div>
-			</div>
+        <div class="video-container">
+        <iframe src="http://www.youtube.com/embed/'.$video_id
+          .'?rel='.$rel_param.'" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
     ';
   } else {
     $content = "[OH DEAR: responsive_youtube has some malformed syntax.]";
@@ -255,12 +255,12 @@ function responsive_vimeo_shortcode($attributes, $content = null) {
   if ($video_id) {
     $content = '
       <div class="video-wrapper"> 
-				<div class="video-container">
-				<iframe src="http://player.vimeo.com/video/'.$video_id
-				  .'" frameborder="0" webkitAllowFullScreen mozallowfullscreen 
-				  allowFullScreen></iframe> 
-				</div>
-			</div>
+        <div class="video-container">
+        <iframe src="http://player.vimeo.com/video/'.$video_id
+          .'" frameborder="0" webkitAllowFullScreen mozallowfullscreen 
+          allowFullScreen></iframe> 
+        </div>
+      </div>
     ';
   } else {
     $content = "[OH DEAR: responsive_vimeo has some malformed syntax.]";
