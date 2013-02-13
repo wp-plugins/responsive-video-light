@@ -3,7 +3,7 @@
   Plugin Name: Responsive Video Light
   Plugin URI: http://bitpusher.tk/responsive-video-light
   Description: A plugin to add responsive videos to pages and posts
-  Version: 1.0.8
+  Version: 1.1.0
   Author: Bill Knechtel
   Author URI: http://bitpusher.tk
   License:  GPLv2
@@ -25,17 +25,17 @@
 */
 
 function rvl_css()  {
-  // Register the css styling to make the video responsive:  
+  // Register the css styling to make the video responsive:
   wp_register_style( 
     'responsive-video-light', 
-    plugins_url( '/css/responsive-videos.css', __FILE__ ), 
-    array(), 
-    '20130111', 
-    'all' 
-  ); 
-  wp_enqueue_style('responsive-video-light');  
+    plugins_url( '/css/responsive-videos.css', __FILE__ ),
+    array(),
+    '20130111',
+    'all'
+  );
+  wp_enqueue_style('responsive-video-light');
 }  
-add_action( 'wp_enqueue_scripts', 'rvl_css' );  
+add_action( 'wp_enqueue_scripts', 'rvl_css' );
 
 //----------------------------------------------------------------------------
 // Create the admin settings page
@@ -82,34 +82,61 @@ function rvl_plugin_options() {
 ?>
   <div style="width:75%">
   <h2>Responsive Video Light Settings</h2>
+  <p>
+    We only have couple of options currently, both related to YouTube.
+  </p>
   
   <form method="post" action="options.php">
     <?php
-    wp_nonce_field('update-options'); 
-    settings_fields('rvl_options'); 
+    wp_nonce_field('update-options');
+    settings_fields('rvl_options');
     $options = get_option('rvl_options_field');
 
-    // Our single global option
+    //Plugin options
     $disable_youtube_related_videos = $options["disable_youtube_related_videos"];
+    $wmode = $options["youtube_wmode"];
     ?>
     <p>
-      We supply a single global option:  Indicate to YouTube that we do or do
+      Default Indicator to YouTube that we do or do
       not wish to have "Related Videos" displayed at the end of the playing of
-      our own video. This can be overridden on a per-video basis with an 
+      our own video. This can be overridden on a per-video basis with an
       argument in the short tag.  Please see the documentation below for more 
       info on available short tag arguments.
     </p>
     <p>
-      <input name="rvl_options_field[disable_youtube_related_videos]" 
-        type="checkbox" value="1" 
-        <?php if ( $disable_youtube_related_videos == "1" ) { 
-          ?> checked="checked" 
+      <input name="rvl_options_field[disable_youtube_related_videos]"
+        type="checkbox" value="1"
+        <?php if ( $disable_youtube_related_videos == "1" ) {
+          ?> checked="checked"
         <?php } ?>/>
       By default, indicate to YouTube that I do not wish to have related 
       videos displayed.
     </p>
+    <p>
+      Window Mode (wmode) is traditionally a flash thing that affects whether
+      or not the background of your movie is transparent, and also can affect
+      whether or not hardware acceleration is used during playback.  Oddly,
+      with YouTube's iframe embeds (such as those used in this plugin), it can
+      also affect z-index.  Setting the wmode to "transparent" should fix this
+      behavior, but your mileage may vary.  This will set the wmode behavior
+      globally, but can be overridden with a shorttag, described further down 
+      this page.
+    </p>
+    <p>
+      <select name="rvl_options_field[youtube_wmode]">
+        <option value="none"
+          <?php if ( $wmode == "none" ) { ?>selected="selected"<?php }
+            ?>>None</option>
+        <option value="transparent"
+          <?php if ( $wmode == "transparent" ) {
+            ?>selected="selected"<?php }?>>Transparent</option>
+        <option value="opaque"
+          <?php if ( $wmode == "opaque" ) { ?>selected="selected"<?php }
+            ?>>Opaque</option>
+      </select>
+    </p>
     <p class="submit">
-      <input type="submit" class="button-primary" 
+      <input type="submit" class="button-primary"
         value="<?php _e('Save Changes') ?>" />
       <input type="hidden" name="action" value="update" />
     </p>
@@ -129,21 +156,36 @@ function rvl_plugin_options() {
   <p>
     When a YouTube video is done playing, it will typically tile a selection
     related videos inside its viewport.  If you want to control whether or not
-    those are shown on a per-video basis, you can use the <code>rel</code> or 
-    <code>norel</code> 
-    options to turn related videos on and off respectively, like this: 
+    those are shown on a per-video basis, you can use the <code>rel</code> or
+    <code>norel</code>
+    options to turn related videos on and off respectively, like this:
     <br /><code>[responsive_youtube NbCr0UyoFJA rel]</code>
     <br /><code>[responsive_youtube NbCr0UyoFJA norel]</code>
+  </p>  
+  <p>
+    Of course, there's an option to tell YouTube that we'd like not to see
+    related videos on a global level on this page, but you can override it
+    on individual videos using these options.
+  </p>
+  <h5>YouTube's "wmode" Parameter</h5>
+  <p>
+    This plugin supports three possible variations of "wmode": None, Transparent,
+    and Opaque. You can set this option globally further up this page, but if
+    you only need it on a per-video basis occasionally, or need to override the
+    default behavior, you can set it this way:
+    <br /><code>[responsive_youtube NbCr0UyoFJA wmode_none]</code>
+    <br /><code>[responsive_youtube NbCr0UyoFJA wmode_transparent]</code>
+    <br /><code>[responsive_youtube NbCr0UyoFJA wmode_opaque]</code>
   </p>
   <p>
-    Of course, there's an option to tell YouTube that we'd like not to see 
-    related videos on a global level on this page, but you can override it 
-    on individual videos using these options.
+    Of course, you can also combine rel or norel and the wmode parameters if
+    you need, like this:
+    <br /><code>[responsive_youtube NbCr0UyoFJA wmode_transparent norel]</code>
   </p>
   
   <h4>Vimeo Videos</h4>
   <p>
-    Simply insert the responsive_vimeo shorttag anywhere shorttags can be 
+    Simply insert the responsive_vimeo shorttag anywhere shorttags can be
     used (posts, pages, wherever).  Include either the full URL to the video
     you're embedding (Not the &lt;embed&gt; URL, the full browser URL) or just
     use the video ID.  The following two shortcodes would work identically:
@@ -183,10 +225,26 @@ add_action('contextual_help', 'rvl_contextual_help', 10, 1);
 function responsive_youtube_shortcode($attributes, $content = null) {
   $options = get_option('rvl_options_field');
   
-  $options['disable_youtube_related_videos'] ? 
+  $options['disable_youtube_related_videos'] ?
     $related_videos = false : $related_videos = true;
-    
+  
   $video_id = null;
+  
+  if ($options['youtube_wmode']) {
+    switch($options['youtube_wmode']) {
+      case "transparent":
+        $wmode = "&wmode=transparent";
+      break;
+      case "opaque":
+        $wmode = "&wmode=opaque";
+      break;
+      default:
+        $wmode = "";
+      break;
+    }
+  } else {
+    $wmode = "";
+  }
   
   // Determine what options were passed in
   foreach($attributes as $attribute) {
@@ -197,11 +255,20 @@ function responsive_youtube_shortcode($attributes, $content = null) {
       case "norel":
         $related_videos = false;
       break;
+      case "wmode_none":
+        $wmode = "";
+      break;
+      case "wmode_opaque":
+        $wmode = "&wmode=opaque";
+      break;
+      case "wmode_transparent":
+        $wmode = "&wmode=transparent";
+      break;
       default:
-        //Fairly primitive extraction - might watch to beef this up
-        if (preg_match('/^http:\/\/.*(v=([-0-9a-zA-Z]*)).*$/', $attribute, $matches)) {
+        //Fairly primitive extraction - might want to beef this up
+        if (preg_match('/^http:\/\/.*(v=([-0-9a-zA-Z_]*)).*$/', $attribute, $matches)) {
           $video_id = $matches[2];
-        } else if (preg_match('/^[-0-9a-zA-Z]*$/', $attribute)) {
+        } else if (preg_match('/^[-0-9a-zA-Z_]*$/', $attribute)) {
           $video_id = $attribute;
         }
       break;
@@ -217,7 +284,7 @@ function responsive_youtube_shortcode($attributes, $content = null) {
       <div class="video-wrapper"> 
         <div class="video-container">
         <iframe src="http://www.youtube.com/embed/'.$video_id
-          .'?rel='.$rel_param.'" frameborder="0" allowfullscreen></iframe>
+          .'?rel='.$rel_param.$wmode.'" frameborder="0" allowfullscreen></iframe>
         </div>
       </div>
     ';
@@ -226,7 +293,7 @@ function responsive_youtube_shortcode($attributes, $content = null) {
   }
   return $content;
 }
-add_shortcode('responsive_youtube', 'responsive_youtube_shortcode'); 
+add_shortcode('responsive_youtube', 'responsive_youtube_shortcode');
 
 //----------------------------------------------------------------------------
 // Create the Vimeo shortcode
@@ -241,7 +308,7 @@ function responsive_vimeo_shortcode($attributes, $content = null) {
   foreach($attributes as $attribute) {
     switch($attribute) {
       default:
-        //Fairly primitive extraction - might watch to beef this up
+        //Fairly primitive extraction - might want to beef this up
         if (preg_match('/^https?:\/\/.*\/(\d*)$/', $attribute, $matches)) {
           $video_id = $matches[1];
         } else if (preg_match('/^\d*$/', $attribute)) {
