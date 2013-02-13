@@ -2,8 +2,8 @@
 Contributors: billknechtel, kburgoine
 Tags: youtube, you tube, vimeo, responsive, video, embed
 Requires at least: 3.0
-Tested up to: 3.5
-Stable tag: 1.0.7
+Tested up to: 3.5.1
+Stable tag: 1.1.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,17 @@ And if you want to specify whether or not you'd like the "related videos" to dis
     [responsive_youtube NbCr0UyoFJA rel]
 
 The rel and norel tags will override whatever you have set in the plugin settings screen for that specific video only.
+
+YouTube supports the setting of an iframe window mode via parameter. The full explaination of what this does is beyond the scope of this documentation (practically, it usually affects the iframe's z-index (so wierd!)), but you can adjust this parameter using "wmode_none", "wmode_transparent", and "wmode_opaque" shorttag parameters, like this:
+
+    [responsive_youtube NbCr0UyoFJA wmode_none]
+    [responsive_youtube NbCr0UyoFJA wmode_transparent]
+    [responsive_youtube NbCr0UyoFJA wmode_opaque]
+    
+Of course the "rel" or "norel" and "wmode_*" parameters can be combined as well:
+    [responsive_youtube NbCr0UyoFJA norel wmode_transparent]
+
+Also, the plugin settings page allows you to set the wmode parameter globally, which you can then override on an as needed basis with the shorttag parameters shown here.
 
 Similarly, for a Vimeo video, you can use the full video player URL or just the video ID, like this:
 
@@ -64,11 +75,25 @@ If this is a Vimeo video, ensure you have permission for the video to be embedde
 
 Make sure that the div or other block-level element that contains the video has a width set and that it is a percentage and not a fixed width.
 
+= YouTube videos are displaying in front of a part of my HTML =
+
+Check out the wmode options in the plugin documentation.  Chances are that
+setting it to "transparent" will fix the problem.
+
 == Contributing ==
 
 Use anonymous svn to get a current trunk copy, or build a patch against your current install, then email the patch to me for consideration.
 
 == Changelog ==
+
+= 1.1.0 =
+* Add wmode shorttag parameter for responsive_youtube.
+* Add underscore to acceptable character set in YouTube video ID regex.
+* Minor whitespace tweaks.
+* Much thanks to kjfrank and f.macdonald for the heads-up and suggested fixes on these issues!
+
+= 1.0.8 =
+* Fix acceptable YouTube ID character set regex.  The Hyphen is now usable as well, per user feedback. (Thanks so much!)
 
 = 1.0.7 =
 * Fix call_user_fun_array() error caused by renaming the css function.
