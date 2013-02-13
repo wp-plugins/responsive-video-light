@@ -39,6 +39,7 @@ YouTube supports the setting of an iframe window mode via parameter. The full ex
     [responsive_youtube NbCr0UyoFJA wmode_opaque]
     
 Of course the "rel" or "norel" and "wmode_*" parameters can be combined as well:
+
     [responsive_youtube NbCr0UyoFJA norel wmode_transparent]
 
 Also, the plugin settings page allows you to set the wmode parameter globally, which you can then override on an as needed basis with the shorttag parameters shown here.
