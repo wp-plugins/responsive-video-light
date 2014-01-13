@@ -50,10 +50,11 @@ Similarly, for a Vimeo video, you can use the full video player URL or just the 
     [responsive_vimeo 29506088]
     
 Unique to Vimeo, there are a few extra parameters you can use to control which elements are visible while displaying the posterframe:
-*   title, notitle - Display the video title (or not, shows by default)
-*   byline, nobyline - Display the byline (or not, shows by default)
-*   portrait, noportrait - Display the user portrait (or not, shows by default)
-*   notab - No Title, Byline, or Portrait, all wrapped into a single parameter ("tab" means Title Author Byline)
+
+*    title, notitle - Display the video title (or not, shows by default)
+*    byline, nobyline - Display the byline (or not, shows by default)
+*    portrait, noportrait - Display the user portrait (or not, shows by default)
+*    notab - No Title, Byline, or Portrait, all wrapped into a single parameter ("tab" means Title Author Byline)
 
 In a future version, these extended options will probably be globally configurable.
 
