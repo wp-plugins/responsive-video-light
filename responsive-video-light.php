@@ -3,7 +3,7 @@
   Plugin Name: Responsive Video Light
   Plugin URI: http://bitpusher.tk/responsive-video-light
   Description: A plugin to add responsive videos to pages and posts
-  Version: 1.1.0
+  Version: 1.2.0
   Author: Bill Knechtel
   Author URI: http://bitpusher.tk
   License:  GPLv2
@@ -192,6 +192,18 @@ function rvl_plugin_options() {
     <br /><code>[responsive_vimeo https://vimeo.com/29506088]</code>
     <br /><code>[responsive_vimeo 29506088]</code>
   </p>
+  <h5>Extra Vimeo Options</h5>
+  <p>
+    Vimeo allows a small amount of control concerning the information overlaid
+    onto the posterframe when the video is initially loaded.  These parameters
+    will control the visibility of those elements.
+  </p>
+  <ul>
+    <li>title, notitle - Display the video title (or not, shows by default)</li>
+    <li>byline, nobyline - Display the byline (or not, shows by default)</li>
+    <li>portrait, noportrait - Display the user portrait (or not, shows by default)</li>
+    <li>notab - No Title, Byline, or Portrait, all wrapped into a single parameter ("tab" means Title Author Byline)</li>
+  </ul>
   </div>
   
   <h4>Miscellany</h4>
@@ -201,22 +213,6 @@ function rvl_plugin_options() {
   </p>
 <?php
 }
-
-//----------------------------------------------------------------------------
-// Contextual help
-//----------------------------------------------------------------------------
-
-//TODO: Update URLs when plugin is accepted to the WordPress plugin site
-function rvl_contextual_help($text) {
-  $screen = $_GET['page'];
-  if ($screen == 'rvl_options') {
-  $text = '<h5>Need Help With the Responsive Video Light Plugin?</h5>';
-  $text .= '<p><a href="http://wordpress.org/extend/plugins/responsive-video-light/">';
-  $text .= 'Check out the Documentation</a></p>';
-  }
-  return $text;
-}
-add_action('contextual_help', 'rvl_contextual_help', 10, 1);
 
 //----------------------------------------------------------------------------
 // Create the YouTube shortcode
@@ -302,11 +298,35 @@ add_shortcode('responsive_youtube', 'responsive_youtube_shortcode');
 function responsive_vimeo_shortcode($attributes, $content = null) {
   
   $video_id = null;
+  $extra_params = array();
   
   // Determine what options were passed in (ignore anything that doesn't look 
   // like an id)
   foreach($attributes as $attribute) {
     switch($attribute) {
+      case "title":
+        array_push($extra_params, "title=1");
+        break;
+      case "notitle":
+        array_push($extra_params, "title=0");
+        break;
+      case "byline":
+        array_push($extra_params, "byline=1");
+        break;
+      case "nobyline":
+        array_push($extra_params, "byline=0");
+        break;
+      case "portrait":
+        array_push($extra_params, "portrait=1");
+        break;
+      case "noportrait":
+        array_push($extra_params, "portrait=0");
+        break;
+      case "notab":
+        array_push($extra_params, "title=0");
+        array_push($extra_params, "byline=0");
+        array_push($extra_params, "portrait=0");
+        break;
       default:
         //Fairly primitive extraction - might want to beef this up
         if (preg_match('/^https?:\/\/.*\/(\d*)$/', $attribute, $matches)) {
@@ -318,12 +338,19 @@ function responsive_vimeo_shortcode($attributes, $content = null) {
     }
   }
   
+  // Prepare $extra_params for insertion into the video URL 
+  if (count($extra_params) > 0) {
+    $extra_params = '?' . join('&', $extra_params);
+  } else {
+    $extra_params = '';
+  }
+  
   // Format and return the content replacement for the short tag
   if ($video_id) {
     $content = '
       <div class="video-wrapper"> 
         <div class="video-container">
-        <iframe src="http://player.vimeo.com/video/'.$video_id
+        <iframe src="http://player.vimeo.com/video/'.$video_id.$extra_params
           .'" frameborder="0" webkitAllowFullScreen mozallowfullscreen 
           allowFullScreen></iframe> 
         </div>

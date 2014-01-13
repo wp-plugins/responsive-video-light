@@ -3,7 +3,7 @@ Contributors: billknechtel, kburgoine
 Tags: youtube, you tube, vimeo, responsive, video, embed
 Requires at least: 3.0
 Tested up to: 3.8
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,14 @@ Similarly, for a Vimeo video, you can use the full video player URL or just the 
 
     [responsive_vimeo https://vimeo.com/29506088 ] 
     [responsive_vimeo 29506088]
+    
+Unique to Vimeo, there are a few extra parameters you can use to control which elements are visible while displaying the posterframe:
+*   title, notitle - Display the video title (or not, shows by default)
+*   byline, nobyline - Display the byline (or not, shows by default)
+*   portrait, noportrait - Display the user portrait (or not, shows by default)
+*   notab - No Title, Byline, or Portrait, all wrapped into a single parameter ("tab" means Title Author Byline)
+
+In a future version, these extended options will probably be globally configurable.
 
 = Requirements =
 
@@ -58,7 +66,7 @@ Similarly, for a Vimeo video, you can use the full video player URL or just the 
 1. Download responsive-video-light.zip.
 2. Upload responsive-video-light.zip to the plugins/ directory.
 3. Enable Responsive Video Light in the Plugin admin panel.
-4. Go to Settings > Responsive Video Light and Review the single setting and learn how to embed the videos in your posts or pages.
+4. Go to Settings > Responsive Video Light and Review the two settings and learn how to embed the videos in your posts or pages.
 5. Create a new or edit a post (or page), and insert the shortcode according to the simple syntax.
 
 
@@ -86,6 +94,10 @@ setting it to "transparent" will fix the problem.
 Use anonymous svn to get a current trunk copy, or build a patch against your current install, then email the patch to me for consideration.
 
 == Changelog ==
+
+= 1.2.0 =
+* Add notitle, nobyline, and noportrait vimeo parameters
+* Remove vestigial contextual help screen code that really did nothing useful
 
 = 1.1.0 =
 * Add wmode shorttag parameter for responsive_youtube.
