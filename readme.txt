@@ -2,8 +2,8 @@
 Contributors: billknechtel, kburgoine
 Tags: youtube, you tube, vimeo, responsive, video, embed
 Requires at least: 3.0
-Tested up to: 3.8
-Stable tag: 1.2.0
+Tested up to: 4.1
+Stable tag: 1.2.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,15 @@ setting it to "transparent" will fix the problem.
 Use anonymous svn to get a current trunk copy, or build a patch against your current install, then email the patch to me for consideration.
 
 == Changelog ==
+
+= 1.2.1 =
+* Fixed http/https warnings & issues by using protocol independent URI.
+* Internal restructure to comply with PSR-2
+* Fix DEBUG mode error by correcting role call to use name as opposed to ID.
+* Refactored administrative interface to use Twig templating system
+
+I'm looking at feature upgrades currently. Be looking for a new release soon with an enhanced feature set.
+This
 
 = 1.2.0 =
 * Add notitle, nobyline, and noportrait vimeo parameters
