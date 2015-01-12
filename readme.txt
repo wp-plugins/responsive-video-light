@@ -3,7 +3,7 @@ Contributors: billknechtel, kburgoine
 Tags: youtube, you tube, vimeo, responsive, video, embed
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 1.2.1
+Stable tag: 1.3.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,9 @@ Features Include:
 *    The ability to add one or more videos directly in to a page, post or any of your own custom post types using the video URL (not the embed code) or ID and a short code. Currently YouTube and Vimeo are supported, using the [responsive_youtube] and [responsive_vimeo] shortcodes, respectively.
 *    Fully responsive so the video's viewport will fill the width of the containing area and scale depending on screen size. No need to set a width and height, just set the width of the div your content sits in.
 *    YouTube videos have a shortcode attribute that lets you turn "related videos" on or off. "Related Videos" are the links that tile across the viewport when a video has completed playing. 
-*    Also in relation to YouTube's "related videos", there is a single setting in the plugin settings screen that allows you to turn them off globally.  Of course you can override this setting on each individual video using the shortcode parameter.
+*    YouTube videos also support light and dark themes, autoplaying, and modest branding which removes most YouTube imagery.
+*    Vimeo videos can have the video portrait, title, and byline shut off.
+*    A comprehensive settings screen which explains all the options and shows you the syntax of the short tags.
 
 Example Usage:
 
@@ -32,31 +34,16 @@ And if you want to specify whether or not you'd like the "related videos" to dis
 
 The rel and norel tags will override whatever you have set in the plugin settings screen for that specific video only.
 
-YouTube supports the setting of an iframe window mode via parameter. The full explaination of what this does is beyond the scope of this documentation (practically, it usually affects the iframe's z-index (so wierd!)), but you can adjust this parameter using "wmode_none", "wmode_transparent", and "wmode_opaque" shorttag parameters, like this:
-
-    [responsive_youtube NbCr0UyoFJA wmode_none]
-    [responsive_youtube NbCr0UyoFJA wmode_transparent]
-    [responsive_youtube NbCr0UyoFJA wmode_opaque]
-    
-Of course the "rel" or "norel" and "wmode_*" parameters can be combined as well:
-
-    [responsive_youtube NbCr0UyoFJA norel wmode_transparent]
-
-Also, the plugin settings page allows you to set the wmode parameter globally, which you can then override on an as needed basis with the shorttag parameters shown here.
-
 Similarly, for a Vimeo video, you can use the full video player URL or just the video ID, like this:
 
     [responsive_vimeo https://vimeo.com/29506088 ] 
     [responsive_vimeo 29506088]
     
-Unique to Vimeo, there are a few extra parameters you can use to control which elements are visible while displaying the posterframe:
+There is a more complete treatment of the shortcode syntax in the settings screen of the plugin itself.
 
-*    title, notitle - Display the video title (or not, shows by default)
-*    byline, nobyline - Display the byline (or not, shows by default)
-*    portrait, noportrait - Display the user portrait (or not, shows by default)
-*    notab - No Title, Byline, or Portrait, all wrapped into a single parameter ("tab" means Title Author Byline)
+= Please Note = 
 
-In a future version, these extended options will probably be globally configurable.
+This is a major upgrade.  The settings screen has undergone a complete overhaul, I've added a handful of options to YouTube, and have added the Vimeo options to the settings screen.  Functionally, however, the syntax of the shortcode is identical to the way it used to work (with more optional parameters available), and is indeed fully backwards compatible with all your existing RVL shortcodes.
 
 = Requirements =
 
@@ -96,6 +83,14 @@ Use anonymous svn to get a current trunk copy, or build a patch against your cur
 
 == Changelog ==
 
+= 1.3.1 =
+* Added missing admin screen CSS.  D'oh!
+
+= 1.3.0 =
+* Added new YouTube options like modest branding and themes (yay!)
+* Added extant Vimeo options to the global settings screen
+* Reworked settings screen to accommodate all the new global settings.
+
 = 1.2.1 =
 * Fixed http/https warnings & issues by using protocol independent URI.
 * Internal restructure to comply with PSR-2
@@ -103,7 +98,6 @@ Use anonymous svn to get a current trunk copy, or build a patch against your cur
 * Refactored administrative interface to use Twig templating system
 
 I'm looking at feature upgrades currently. Be looking for a new release soon with an enhanced feature set.
-This
 
 = 1.2.0 =
 * Add notitle, nobyline, and noportrait vimeo parameters
@@ -147,6 +141,6 @@ This
 
 == Screenshots ==
 
-1. An example of a responsive vimeo shortcode in use
+1. An example of responsive shortcodes in use
 2. The settings page which also shows example usage
 3. User-facing responsive embedded video

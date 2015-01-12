@@ -1,113 +1,214 @@
-            <p>
-            Default Indicator to YouTube that we do or do not wish to have
-            "Related Videos" displayed at the end of the playing of our own
-            video. This can be overridden on a per-video basis with an argument
-            in the short tag. Please see the documentation below for more info on
-            available short tag arguments.
-        </p>
-        <p>
-            <input name="rvl_options_field[disable_youtube_related_videos]"
-                type="checkbox" value="1" {{check_disable_youtube_related}} /> By
-            default, indicate to YouTube that I do not wish to have related
-            videos displayed.
-        </p>
-        <p>
-            Window Mode (wmode) is traditionally a flash thing that affects
-            whether or not the background of your movie is transparent, and also
-            can affect whether or not hardware acceleration is used during
-            playback. Oddly, with YouTube's iframe embeds (such as those used in
-            this plugin), it can also affect z-index. Setting the wmode to
-            "transparent" should fix this behavior, but your mileage may vary.
-            This will set the wmode behavior globally, but can be overridden with
-            a shorttag, described further down this page.
-        </p>
-        <p>
-            <select name="rvl_options_field[youtube_wmode]">
-                <option value="none" {% if 'none' == youtube_wmode %}selected="selected"{% endif %}>None</option>
-                <option value="transparent" {% if 'transparent' == youtube_wmode %}selected="selected"{% endif %}>Transparent</option>
-                <option value="opaque" {% if 'opaque' == youtube_wmode %}selected="selected" {% endif %}>Opaque</option>
-            </select>
-        </p>
-        <p class="submit">
-            <input type="submit" class="button-primary" value="Save Changes" />
-            <input type="hidden" name="action" value="update" />
-        </p>
-    </form>
-
-    <h3>Using the Short Tags</h3>
-    <h4>YouTube Videos</h4>
-    <p>
-        Simply insert the responsive_youtube shorttag anywhere shorttags can
-        be used (posts, pages, wherever). Include either the full URL to the
-        video you're embedding (Not the &lt;embed&gt; URL, the full browser
-        URL) or just use the video ID. The following two shortcodes would work
-        identically: <br />
-        <code>[responsive_youtube http://www.youtube.com/watch?v=NbCr0UyoFJA]</code>
-        <br />
-        <code>[responsive_youtube NbCr0UyoFJA]</code>
-    </p>
-    <h5>YouTube's "Related Videos"</h5>
-    <p>
-        When a YouTube video is done playing, it will typically tile a
-        selection related videos inside its viewport. If you want to control
-        whether or not those are shown on a per-video basis, you can use the
-        <code>rel</code>
-        or
-        <code>norel</code>
-        options to turn related videos on and off respectively, like this: <br />
-        <code>[responsive_youtube NbCr0UyoFJA rel]</code>
-        <br />
-        <code>[responsive_youtube NbCr0UyoFJA norel]</code>
-    </p>
-    <p>Of course, there's an option to tell YouTube that we'd like not to
-        see related videos on a global level on this page, but you can
-        override it on individual videos using these options.</p>
-    <h5>YouTube's "wmode" Parameter</h5>
-    <p>
-        This plugin supports three possible variations of "wmode": None,
-        Transparent, and Opaque. You can set this option globally further up
-        this page, but if you only need it on a per-video basis occasionally,
-        or need to override the default behavior, you can set it this way: <br />
-        <code>[responsive_youtube NbCr0UyoFJA wmode_none]</code>
-        <br />
-        <code>[responsive_youtube NbCr0UyoFJA wmode_transparent]</code>
-        <br />
-        <code>[responsive_youtube NbCr0UyoFJA wmode_opaque]</code>
-    </p>
-    <p>
-        Of course, you can also combine rel or norel and the wmode parameters
-        if you need, like this: <br />
-        <code>[responsive_youtube NbCr0UyoFJA wmode_transparent norel]</code>
-    </p>
-
-    <h4>Vimeo Videos</h4>
-    <p>
-        Simply insert the responsive_vimeo shorttag anywhere shorttags can be
-        used (posts, pages, wherever). Include either the full URL to the
-        video you're embedding (Not the &lt;embed&gt; URL, the full browser
-        URL) or just use the video ID. The following two shortcodes would work
-        identically: <br />
-        <code>[responsive_vimeo https://vimeo.com/29506088]</code>
-        <br />
-        <code>[responsive_vimeo 29506088]</code>
-    </p>
-    <h5>Extra Vimeo Options</h5>
-    <p>Vimeo allows a small amount of control concerning the information
-        overlaid onto the posterframe when the video is initially loaded.
-        These parameters will control the visibility of those elements.</p>
-    <ul>
-        <li>title, notitle - Display the video title (or not, shows by default)</li>
-        <li>byline, nobyline - Display the byline (or not, shows by default)</li>
-        <li>portrait, noportrait - Display the user portrait (or not, shows by default)</li>
-        <li>
-            notab - No Title, Byline, or Portrait, all wrapped into a single
-            parameter ("tab" means Title Author Byline)
-        </li>
-    </ul>
+                    <h3><a name="YouTubeOptions">YouTube Options</a></h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Option Name</th>
+                                <th colspan="2">Default Setting</th>
+                                <th>Short Tag Parameters</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Related Videos</td>
+                                <td>
+                                    <input name=rvl_options_field[disable_youtube_related_videos]
+                                        id="rvl-youtube-realted-videos"
+                                        type="checkbox" value="1" 
+                                        {% if disable_youtube_related_videos %}checked="checked"{% endif %} />
+                                </td>
+                                <td><label for="rvl-youtube-realted-videos">
+                                    Disable related viedos at video&nbsp;end</label></td>
+                                <td><code>rel</code>, <code>norel</code></td>
+                                <td>
+                                    YouTube typically displays thumbnails of videos it
+                                    feels are related to what was just shown at the end
+                                    of a video.  This option can modify this&nbsp;behavior.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Autoplay</td>
+                                <td>
+                                    <input name="rvl_options_field[enable_youtube_autoplay]"
+                                        id="rvl-youtube-autoplay"
+                                        type="checkbox" value="1" 
+                                        {% if enable_youtube_autoplay %}checked="checked"{% endif %} />
+                                </td>
+                                <td><label for="rvl-youtube-autoplay">
+                                    Automatically Start Videos On&nbsp;Load</label></td>
+                                <td><code>autoplay</code>, <code>noautoplay</code></td>
+                                <td>
+                                    Automatically begin playback of a video as soon as
+                                    the page it's on is&nbsp;loaded.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Modest Branding</td>
+                                <td>
+                                    <input name="rvl_options_field[enable_modest_branding]"
+                                        id="rvl-modest-branding"
+                                        type="checkbox" value="1" {% if enable_modest_branding %}checked="checked"{% endif %} />
+                                </td>
+                                <td><label for="rvl-modest-branding">Enable Modest Branding</label></td>
+                                <td><code>modestbranding</code>, <code>nomodestbranding</code></td>
+                                <td>
+                                    Prevent the YouTube logo from displaying in the control
+                                    toolbar. A small YouTube text label will appear in the
+                                    info bar if a user hovers their mouse over a 
+                                    paused&nbsp;video.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Window Mode</td>
+                                <td>
+                                    <select name="rvl_options_field[youtube_wmode]"
+                                        id="rvl-youtube-wmode">
+                                        <option value="none" {% if 'none' == youtube_wmode %}selected="selected"{% endif %}>None</option>
+                                        <option value="transparent" {% if 'transparent' == youtube_wmode %}selected="selected"{% endif %}>Transparent</option>
+                                        <option value="opaque" {% if 'opaque' == youtube_wmode %}selected="selected" {% endif %}>Opaque</option>
+                                    </select>
+                                </td>
+                                <td><label for="rvl-youtube-wmode">
+                                    Default Window Mode</label></td>
+                                <td><code>wmode_none</code>, <code>wmode_transparent</code>, <code>wmode_opaque</code></td>
+                                <td>
+                                    Window Mode is traditionally a flash thing 
+                                    that affects whether or not the background of your 
+                                    movie is transparent, and also can affect whether 
+                                    or not hardware acceleration is used during 
+                                    playback. Oddly, with YouTube's iframe embeds 
+                                    (such as those used in this plugin), it can also 
+                                    affect z-index. Setting the wmode to "transparent" 
+                                    should fix this behavior, but your mileage 
+                                    may&nbsp;vary.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Theme</td>
+                                <td>
+                                    <select name="rvl_options_field[youtube_theme]"
+                                        id="rvl-youtube-theme">
+                                        <option value="dark" {% if 'dark' == youtube_theme %}selected="selected"{% endif %}>Dark</option>
+                                        <option value="light" {% if 'light' == youtube_theme %}selected="selected" {% endif %}>Light</option>
+                                    </select>
+                                </td>
+                                <td><label for="rvl-youtube-theme">
+                                    Default Theme</label></td>
+                                <td><code>dark_theme</code>, <code>light_theme</code></td>
+                                <td>
+                                    Typically the default dark theme is used, but
+                                    YouTube does offer a light variant that might be
+                                    a better fit for your&nbsp;site.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="submit">
+                        <input type="submit" class="button-primary" value="Save Settings" />
+                        <input type="hidden" name="action" value="update" />
+                    </p>
+                    <h3><a name="YouTubeSyntax">YouTube Short Tag Syntax &amp; Options</a></h3>
+                    <p>
+                        Simply include the URL or video id inside a [responsive_youtube] short tag, like this:
+                        <code>[responsive_youtube soagYwfgfxc]</code>, <br />or this: 
+                        <code>[responsive_youtube https://www.youtube.com/watch?v=soagYwfgfxc]</code>. In the
+                        table above, you'll notice the options in the "Short Tag Parameters" column.  These can
+                        be added to the short tag in order to override one of the defaults or set an option
+                        on a one-off basis.  For example, should you choose to use the light theme instead of the 
+                        default dark theme on your about page which has a custom template the light theme would look
+                        good with, you could use the following short tag <code>[responsive_tube soagYwfgfxc light_theme]</code>.
+                        Also, you can use more than one parameter at a time, so 
+                        <code>[responsive_tube soagYwfgfxc light_theme autoplay]</code> is also valid.
+                    </p>
+                    <h3 style="padding-top: 18px;"><a name="VimeoOptions">Vimeo Options</a></h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Option Name</th>
+                                <th colspan="2">Default Setting</th>
+                                <th>Short Tag Parameters</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Title Display</td>
+                                <td>
+                                    <input name=rvl_options_field[disable_vimeo_title_display]
+                                        id="rvl-vimeo-title-display"
+                                        type="checkbox" value="1" 
+                                        {% if disable_vimeo_title_display %}checked="checked"{% endif %} />
+                                </td>
+                                <td><label for="rvl-vimeo-title-display">
+                                    Disable the display of the video&nbsp;title</label></td>
+                                <td><code>title</code>, <code>notitle</code></td>
+                                <td>
+                                    The title of the video typically displays in a bar that stretches
+                                    across the top of video when it's not playing back.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Byline Display</td>
+                                <td>
+                                    <input name="rvl_options_field[disable_vimeo_byline_display]"
+                                        id="rvl-vimeo-byline"
+                                        type="checkbox" value="1" 
+                                        {% if disable_vimeo_byline_display %}checked="checked"{% endif %} />
+                                </td>
+                                <td><label for="rvl-vimeo-byline">
+                                    Disable the display of the&nbsp;byline</label></td>
+                                <td><code>byline</code>, <code>nobyline</code></td>
+                                <td>
+                                    Typically displayed underneath the video title.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Portrait Display</td>
+                                <td>
+                                    <input name="rvl_options_field[disable_vimeo_portrait_display]"
+                                        id="rvl-vimeo-portrait"
+                                        type="checkbox" value="1" {% if disable_vimeo_portrait_display %}checked="checked"{% endif %} />
+                                </td>
+                                <td><label for="rvl-vimeo-portrait">Disable the display of the user&nbsp;portrait</label></td>
+                                <td><code>portrait</code>, <code>noportrait</code></td>
+                                <td>
+                                    Typically displayed in the upper left corner of the video.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="submit">
+                        <input type="submit" class="button-primary" value="Save Settings" />
+                        <input type="hidden" name="action" value="update" />
+                    </p>
+                    <h3><a name="VimeoSyntax">Vimeo Short Tag Syntax &amp; Options</a></h3>
+                    <p>
+                        Similarly to the YouTube syntax, simply include the URL or 
+                        video id inside a [responsive_vimeo] short tag, like this:
+                        <br /><code>[responsive_vimeo 29506088]</code>, or this: 
+                        <code>[responsive_vimeo https://vimeo.com/29506088]</code>. 
+                        In the table above, you'll notice the options in the "Short Tag 
+                        Parameters" column.  These can be added to the short tag in 
+                        order to override one of the defaults or set an option on 
+                        a one-off basis.  For example, should you choose to include
+                        the title of a video after disabling it her in the defaults, 
+                        you could use the following short tag <code>[responsive_vimeo 29506088 title]</code>.
+                    </p>
+                </form>
+            
+            </div>
+            <div class="col-md-3">
+                <nav class="rvl-admin">
+                    <h4>Table of Contents</h4>
+                    <ol>
+                        <li><a href="#Introduction">Introduction</a></li>
+                        <li><a href="#YouTubeOptions">YouTube Options</a></li>
+                        <li><a href="#YouTubeSyntax">YouTube Short Tag Syntax</a></li>
+                        <li><a href="#VimeoOptions">Vimeo Options</a></li>
+                        <li><a href="#VimeoSyntax">Vimeo Short Tag Syntax</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
 </div>
-
-<h4>Miscellany</h4>
-<p>
-    You can use more than one responsive shortcode in any given post or
-    page, And you can mix types as well (Vimeo and YouTube).
-</p>
