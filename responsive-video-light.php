@@ -3,7 +3,7 @@
  * Plugin Name: Responsive Video Light
  * Plugin URI: http://bitpusher.tk/responsive-video-light
  * Description: A plugin to add responsive videos to pages and posts
- * Version: 1.2.1
+ * Version: 1.3.0
  * Author: Bill Knechtel
  * Author URI: http://bitpusher.tk
  * License: GPLv2
@@ -34,6 +34,35 @@ $twig = new Twig_Environment(
     array('cache' => $base_path . '/twig_cache')
 );
 
+/**
+ * Register and queue admin-facing CSS
+ */
+function rvl_admin_css()
+{
+    wp_register_style(
+        'tbm-bootstrap-3',
+        plugins_url('/css/bootstrap.min.css', __FILE__),
+        array(),
+        '2014123001',
+        'all'
+    );
+    wp_enqueue_style('tbm-bootstrap-3');
+
+    wp_register_style(
+        'rvl-admin',
+        plugins_url('/css/rvl-admin.css', __FILE__),
+        array(),
+        '2014122301',
+        'all'
+    );
+    wp_enqueue_style('rvl-admin');
+}
+
+add_action('admin_enqueue_scripts', 'rvl_admin_css');
+
+/**
+ * Register and queue our user-facing CSS
+ */
 function rvl_css()
 {
     // Register the css styling to make the video responsive:
@@ -99,18 +128,13 @@ add_filter('plugin_action_links', 'rvl_plugin_action_links', 10, 2);
 function rvl_plugin_options()
 {
     global $twig;
-    $options = get_option('rvl_options_field');
+    $options = get_option('rvl_options_field', array());
 
     // Plugin options
-    $rvl_plugin_options_data = array();
-    $rvl_plugin_options_data['check_disable_youtube_related'] =
-        $options["disable_youtube_related_videos"] == "1" ? 'checked="checked"' : '';
-    $rvl_plugin_options_data['youtube_wmode'] = $options["youtube_wmode"];
-
     echo $twig->render('rvl_plugin_options_head.html');
     wp_nonce_field('update-options');
     settings_fields('rvl_options');
-    echo $twig->render('rvl_plugin_options.html', $rvl_plugin_options_data);
+    echo $twig->render('rvl_plugin_options.html', $options);
 }
 
 // ----------------------------------------------------------------------------
@@ -118,45 +142,77 @@ function rvl_plugin_options()
 // ----------------------------------------------------------------------------
 function responsive_youtube_shortcode($attributes, $content = null)
 {
-    $options = get_option('rvl_options_field');
+    $options = get_option('rvl_options_field', array());
 
-    $related_videos = $options['disable_youtube_related_videos'] ? false :  true;
+    $query_string = array();
+
+    // Prep our query string based on defaults
+    foreach ($options as $option => $option_value) {
+        switch ($option) {
+            case 'disable_youtube_related_videos':
+                $query_string['rel'] = '0';
+                break;
+            case 'enable_youtube_autoplay':
+                $query_string['autoplay'] = '1';
+                break;
+            case 'enable_modest_branding':
+                $query_string['modestbranding'] = '1';
+                break;
+            case 'youtube_wmode':
+                switch ($option_value) {
+                    case "transparent":
+                        $query_string['wmode'] = "transparent";
+                        break;
+                    case "opaque":
+                        $query_string['wmode'] = "opaque";
+                        break;
+                }
+                break;
+            case 'youtube_theme':
+                if ($option_value == 'light') {
+                    $query_string['theme'] = 'light';
+                } else {
+                    $query_string['theme'] = 'dark';
+                }
+                break;
+        }
+    }
 
     $video_id = null;
 
-    if ($options['youtube_wmode']) {
-        switch ($options['youtube_wmode']) {
-            case "transparent":
-                $wmode = "&wmode=transparent";
-                break;
-            case "opaque":
-                $wmode = "&wmode=opaque";
-                break;
-            default:
-                $wmode = "";
-                break;
-        }
-    } else {
-        $wmode = "";
-    }
-
-    // Determine what options were passed in
+    // Determine what options were passed in. These can potentially override
+    // The defaults we've just set up.
     foreach ($attributes as $attribute) {
         switch ($attribute) {
-            case "rel":
-                $related_videos = true;
+            case 'rel':
+                $query_string['rel'] = '1';
                 break;
-            case "norel":
-                $related_videos = false;
+            case 'norel':
+                $query_string['rel'] = '0';
                 break;
-            case "wmode_none":
-                $wmode = "";
+            case 'wmode_opaque':
+                $query_string['wmode'] = 'opaque';
                 break;
-            case "wmode_opaque":
-                $wmode = "&wmode=opaque";
+            case 'wmode_transparent':
+                $query_string['wmode'] = 'transparent';
                 break;
-            case "wmode_transparent":
-                $wmode = "&wmode=transparent";
+            case 'autoplay':
+                $query_string['autoplay'] = '1';
+                break;
+            case 'noautoplay':
+                $query_string['autoplay'] = '0';
+                break;
+            case 'modestbranding':
+                $query_string['modestbranding'] = '1';
+                break;
+            case 'nomodestbranding':
+                $query_string['modestbranding'] = '0';
+                break;
+            case 'dark_theme':
+                $query_string['theme'] = 'dark';
+                break;
+            case 'light_theme':
+                $query_string['theme'] = 'light';
                 break;
             default:
                 // Fairly primitive extraction - might want to beef this up
@@ -169,15 +225,20 @@ function responsive_youtube_shortcode($attributes, $content = null)
         }
     }
 
-    // Format the related videos URL parameter
-    $related_videos ? $rel_param = 1 : $rel_param = 0;
+    // Convert $query_string from an array into a usable query string
+    $formatted_query_string = '';
+
+    foreach ($query_string as $parameter => $value) {
+        $formatted_query_string .= '&' . $parameter . '=' . $value;
+    }
+    $formatted_query_string = substr($formatted_query_string, 1);
 
     // Format and return the content replacement for the short tag
     if ($video_id) {
         $content = '
       <div class="video-wrapper">
         <div class="video-container">
-          <iframe src="//www.youtube.com/embed/' . $video_id . '?rel=' . $rel_param . $wmode . '" frameborder="0" allowfullscreen></iframe>
+          <iframe src="//www.youtube.com/embed/' . $video_id . '?' . $formatted_query_string . '" frameborder="0" allowfullscreen></iframe>
         </div>
       </div>
     ';
@@ -194,38 +255,53 @@ add_shortcode('responsive_youtube', 'responsive_youtube_shortcode');
 // ----------------------------------------------------------------------------
 function responsive_vimeo_shortcode($attributes, $content = null)
 {
+    $options = get_option('rvl_options_field', array());
+    $query_string = array();
+
+    foreach ($options as $option => $option_value) {
+        switch ($option) {
+            case 'disable_vimeo_title_display':
+                $query_string['title'] = '0';
+                break;
+            case 'disable_vimeo_byline_display':
+                $query_string['byline'] = '0';
+                break;
+            case 'disable_vimeo_portrait_display':
+                $query_string['portrait'] = '0';
+                break;
+        }
+    }
+
     $video_id = null;
-    $extra_params = array();
 
     // Determine what options were passed in (ignore anything that doesn't look
     // like an id)
     foreach ($attributes as $attribute) {
         switch ($attribute) {
             case "title":
-                array_push($extra_params, "title=1");
+                $query_string['title'] = '1';
                 break;
             case "notitle":
-                array_push($extra_params, "title=0");
+                $query_string['title'] = '0';
                 break;
             case "byline":
-                array_push($extra_params, "byline=1");
+                $query_string['byline'] = '1';
                 break;
             case "nobyline":
-                array_push($extra_params, "byline=0");
+                $query_string['byline'] = '0';
                 break;
             case "portrait":
-                array_push($extra_params, "portrait=1");
+                $query_string['portrait'] = '1';
                 break;
             case "noportrait":
-                array_push($extra_params, "portrait=0");
+                $query_string['portrait'] = '0';
                 break;
             case "notab":
-                array_push($extra_params, "title=0");
-                array_push($extra_params, "byline=0");
-                array_push($extra_params, "portrait=0");
+                $query_string['portrait'] = '0';
+                $query_string['byline'] = '0';
+                $query_string['title'] = '0';
                 break;
             default:
-
                 // Fairly primitive extraction - might want to beef this up
                 if (preg_match('/^https?:\/\/.*\/(\d*)$/', $attribute, $matches)) {
                     $video_id = $matches[1];
@@ -236,19 +312,20 @@ function responsive_vimeo_shortcode($attributes, $content = null)
         }
     }
 
-    // Prepare $extra_params for insertion into the video URL
-    if (count($extra_params) > 0) {
-        $extra_params = '?' . join('&', $extra_params);
-    } else {
-        $extra_params = '';
+    // Convert $query_string from an array into a usable query string
+    $formatted_query_string = '';
+
+    foreach ($query_string as $parameter => $value) {
+        $formatted_query_string .= '&' . $parameter . '=' . $value;
     }
+    $formatted_query_string = substr($formatted_query_string, 1);
 
     // Format and return the content replacement for the short tag
     if ($video_id) {
         $content = '
       <div class="video-wrapper">
         <div class="video-container">
-        <iframe src="//player.vimeo.com/video/' . $video_id . $extra_params . '" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        <iframe src="//player.vimeo.com/video/' . $video_id . '?' . $formatted_query_string . '" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
         </div>
       </div>
     ';
