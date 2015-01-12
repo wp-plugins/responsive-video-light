@@ -3,7 +3,7 @@ Contributors: billknechtel, kburgoine
 Tags: youtube, you tube, vimeo, responsive, video, embed
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,6 +82,9 @@ setting it to "transparent" will fix the problem.
 Use anonymous svn to get a current trunk copy, or build a patch against your current install, then email the patch to me for consideration.
 
 == Changelog ==
+
+= 1.3.1 =
+* Added missing admin screen CSS.  D'oh!
 
 = 1.3.0 =
 * Added new YouTube options like modest branding and themes (yay!)
