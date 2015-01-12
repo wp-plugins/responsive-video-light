@@ -8,7 +8,7 @@
  * Author URI: http://bitpusher.tk
  * License: GPLv2
  *
- * Copyright 2013 William Knechtel
+ * Copyright 2013-2015 William Knechtel
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as published
