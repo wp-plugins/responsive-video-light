@@ -172,7 +172,7 @@ function responsive_youtube_shortcode($attributes, $content = null)
     // Format the related videos URL parameter
     $related_videos ? $rel_param = 1 : $rel_param = 0;
 
-    // Format and return the content replacement for the short tag
+    // Format and return the content replacement for the shortcode
     if ($video_id) {
         $content = '
       <div class="video-wrapper">
@@ -243,7 +243,7 @@ function responsive_vimeo_shortcode($attributes, $content = null)
         $extra_params = '';
     }
 
-    // Format and return the content replacement for the short tag
+    // Format and return the content replacement for the shortcode
     if ($video_id) {
         $content = '
       <div class="video-wrapper">

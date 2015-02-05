@@ -7,7 +7,7 @@ Stable tag: 1.2.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This will display a responsive YouTube or Vimeo video in pages or posts - anywhere shorttags can be used, including the "text" widget.
+This will display a responsive YouTube or Vimeo video in pages or posts - anywhere shortcodes can be used, including the "text" widget.
 
 == Description ==
 
@@ -32,7 +32,7 @@ And if you want to specify whether or not you'd like the "related videos" to dis
 
 The rel and norel tags will override whatever you have set in the plugin settings screen for that specific video only.
 
-YouTube supports the setting of an iframe window mode via parameter. The full explaination of what this does is beyond the scope of this documentation (practically, it usually affects the iframe's z-index (so wierd!)), but you can adjust this parameter using "wmode_none", "wmode_transparent", and "wmode_opaque" shorttag parameters, like this:
+YouTube supports the setting of an iframe window mode via parameter. The full explaination of what this does is beyond the scope of this documentation (practically, it usually affects the iframe's z-index (so wierd!)), but you can adjust this parameter using "wmode_none", "wmode_transparent", and "wmode_opaque" shortcode parameters, like this:
 
     [responsive_youtube NbCr0UyoFJA wmode_none]
     [responsive_youtube NbCr0UyoFJA wmode_transparent]
@@ -42,7 +42,7 @@ Of course the "rel" or "norel" and "wmode_*" parameters can be combined as well:
 
     [responsive_youtube NbCr0UyoFJA norel wmode_transparent]
 
-Also, the plugin settings page allows you to set the wmode parameter globally, which you can then override on an as needed basis with the shorttag parameters shown here.
+Also, the plugin settings page allows you to set the wmode parameter globally, which you can then override on an as needed basis with the shortcode parameters shown here.
 
 Similarly, for a Vimeo video, you can use the full video player URL or just the video ID, like this:
 
@@ -110,7 +110,7 @@ This
 * Remove vestigial contextual help screen code that really did nothing useful
 
 = 1.1.0 =
-* Add wmode shorttag parameter for responsive_youtube.
+* Add wmode shortcode parameter for responsive_youtube.
 * Add underscore to acceptable character set in YouTube video ID regex.
 * Minor whitespace tweaks.
 * Much thanks to kjfrank and f.macdonald for the heads-up and suggested fixes on these issues!
@@ -126,14 +126,14 @@ This
 * Rename the css integration function so as not to interfere with the original "Rsponsive video" plugin.
 
 = 1.0.5 =
-* Update documentation markdown to interpolate closing brackets correctly where a URL is the last parameter of the shorttag.
+* Update documentation markdown to interpolate closing brackets correctly where a URL is the last parameter of the shortcode.
 
 = 1.0.4 =
 * Update description to fit within prescribed limits. Going to take a while to get used to the "WordPress Way"
 
 = 1.0.3 =
 * Update readme to correct minor markdown syntax issues
-* Add note about using shorttag in text widget
+* Add note about using shortcode in text widget
 * update contextual help URL
 
 = 1.0.2 =
