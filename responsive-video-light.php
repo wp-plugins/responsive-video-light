@@ -100,8 +100,8 @@ function rvl_plugin_options() {
       Default Indicator to YouTube that we do or do
       not wish to have "Related Videos" displayed at the end of the playing of
       our own video. This can be overridden on a per-video basis with an
-      argument in the short tag.  Please see the documentation below for more 
-      info on available short tag arguments.
+      argument in the shortcode.  Please see the documentation below for more 
+      info on available shortcode arguments.
     </p>
     <p>
       <input name="rvl_options_field[disable_youtube_related_videos]"
@@ -119,7 +119,7 @@ function rvl_plugin_options() {
       with YouTube's iframe embeds (such as those used in this plugin), it can
       also affect z-index.  Setting the wmode to "transparent" should fix this
       behavior, but your mileage may vary.  This will set the wmode behavior
-      globally, but can be overridden with a shorttag, described further down 
+      globally, but can be overridden with a shortcode, described further down 
       this page.
     </p>
     <p>
@@ -142,10 +142,10 @@ function rvl_plugin_options() {
     </p>
   </form>
   
-  <h3>Using the Short Tags</h3>
+  <h3>Using the Shortcodes</h3>
   <h4>YouTube Videos</h4>
   <p>
-    Simply insert the responsive_youtube shorttag anywhere shorttags can be 
+    Simply insert the responsive_youtube shortcode anywhere shortcodes can be 
     used (posts, pages, wherever).  Include either the full URL to the video
     you're embedding (Not the &lt;embed&gt; URL, the full browser URL) or just
     use the video ID.  The following two shortcodes would work identically:
@@ -185,7 +185,7 @@ function rvl_plugin_options() {
   
   <h4>Vimeo Videos</h4>
   <p>
-    Simply insert the responsive_vimeo shorttag anywhere shorttags can be
+    Simply insert the responsive_vimeo shortcode anywhere shortcodes can be
     used (posts, pages, wherever).  Include either the full URL to the video
     you're embedding (Not the &lt;embed&gt; URL, the full browser URL) or just
     use the video ID.  The following two shortcodes would work identically:
@@ -274,7 +274,7 @@ function responsive_youtube_shortcode($attributes, $content = null) {
   // Format the related videos URL parameter
   $related_videos ? $rel_param = 1 : $rel_param = 0;
   
-  // Format and return the content replacement for the short tag
+  // Format and return the content replacement for the shortcode
   if ($video_id) {
     $content = '
       <div class="video-wrapper"> 
@@ -345,7 +345,7 @@ function responsive_vimeo_shortcode($attributes, $content = null) {
     $extra_params = '';
   }
   
-  // Format and return the content replacement for the short tag
+  // Format and return the content replacement for the shortcode
   if ($video_id) {
     $content = '
       <div class="video-wrapper"> 
