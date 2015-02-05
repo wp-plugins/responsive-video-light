@@ -233,7 +233,7 @@ function responsive_youtube_shortcode($attributes, $content = null)
     }
     $formatted_query_string = substr($formatted_query_string, 1);
 
-    // Format and return the content replacement for the short tag
+    // Format and return the content replacement for the shortcode
     if ($video_id) {
         $content = '
       <div class="video-wrapper">
@@ -320,7 +320,7 @@ function responsive_vimeo_shortcode($attributes, $content = null)
     }
     $formatted_query_string = substr($formatted_query_string, 1);
 
-    // Format and return the content replacement for the short tag
+    // Format and return the content replacement for the shortcode
     if ($video_id) {
         $content = '
       <div class="video-wrapper">
