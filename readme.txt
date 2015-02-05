@@ -43,7 +43,7 @@ There is a more complete treatment of the shortcode syntax in the settings scree
 
 = Please Note = 
 
-This is a major upgrade.  The settings screen has undergone a complete overhaul, I've added a handful of options to YouTube, and have added the Vimeo options to the settings screen.  Functionally, however, the syntax of the shortcode is identical to the way it used to work (with more optional parameters available), and is indeed fully backwards compatible with all your existing RVL shortcodes.
+This release, 1.3.x, is a major upgrade.  The settings screen has undergone a complete overhaul, I've added a handful of options to YouTube, and have added the Vimeo options to the settings screen.  Functionally, however, the syntax of the shortcode is identical to the way it used to work (with more optional parameters available), and is indeed fully backwards compatible with all your existing RVL shortcodes.
 
 = Requirements =
 
