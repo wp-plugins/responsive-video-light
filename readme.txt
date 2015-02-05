@@ -7,7 +7,7 @@ Stable tag: 1.3.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This will display a responsive YouTube or Vimeo video in pages or posts - anywhere shorttags can be used, including the "text" widget.
+This will display a responsive YouTube or Vimeo video in pages or posts - anywhere shortcodes can be used, including the "text" widget.
 
 == Description ==
 
@@ -18,7 +18,7 @@ Features Include:
 *    YouTube videos have a shortcode attribute that lets you turn "related videos" on or off. "Related Videos" are the links that tile across the viewport when a video has completed playing. 
 *    YouTube videos also support light and dark themes, autoplaying, and modest branding which removes most YouTube imagery.
 *    Vimeo videos can have the video portrait, title, and byline shut off.
-*    A comprehensive settings screen which explains all the options and shows you the syntax of the short tags.
+*    A comprehensive settings screen which explains all the options and shows you the syntax of the shortcodes.
 
 Example Usage:
 
@@ -101,7 +101,7 @@ I'm looking at feature upgrades currently. Be looking for a new release soon wit
 * Remove vestigial contextual help screen code that really did nothing useful
 
 = 1.1.0 =
-* Add wmode shorttag parameter for responsive_youtube.
+* Add wmode shortcode parameter for responsive_youtube.
 * Add underscore to acceptable character set in YouTube video ID regex.
 * Minor whitespace tweaks.
 * Much thanks to kjfrank and f.macdonald for the heads-up and suggested fixes on these issues!
@@ -117,14 +117,14 @@ I'm looking at feature upgrades currently. Be looking for a new release soon wit
 * Rename the css integration function so as not to interfere with the original "Rsponsive video" plugin.
 
 = 1.0.5 =
-* Update documentation markdown to interpolate closing brackets correctly where a URL is the last parameter of the shorttag.
+* Update documentation markdown to interpolate closing brackets correctly where a URL is the last parameter of the shortcode.
 
 = 1.0.4 =
 * Update description to fit within prescribed limits. Going to take a while to get used to the "WordPress Way"
 
 = 1.0.3 =
 * Update readme to correct minor markdown syntax issues
-* Add note about using shorttag in text widget
+* Add note about using shortcode in text widget
 * update contextual help URL
 
 = 1.0.2 =
