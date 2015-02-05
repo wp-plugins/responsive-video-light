@@ -7,7 +7,7 @@ Stable tag: 1.0.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This will display a responsive YouTube or Vimeo video in pages / posts - anywhere shorttags can be used. 
+This will display a responsive YouTube or Vimeo video in pages / posts - anywhere shortcodes can be used. 
 
 == Description ==
 
