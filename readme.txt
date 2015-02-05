@@ -7,7 +7,7 @@ Stable tag: 1.0.5
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This will display a responsive YouTube or Vimeo video in pages or posts - anywhere shorttags can be used, including the "text" widget.
+This will display a responsive YouTube or Vimeo video in pages or posts - anywhere shortcodes can be used, including the "text" widget.
 
 == Description ==
 
@@ -75,7 +75,7 @@ Use anonymous svn to get a current trunk copy, or build a patch against your cur
 
 = 1.0.3 =
 * Update readme to correct minor markdown syntax issues
-* Add note about using shorttag in text widget
+* Add note about using shortcode in text widget
 * update contextual help URL
 
 = 1.0.2 =
