@@ -7,7 +7,7 @@ Stable tag: 1.3.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Embed a responsive YouTube or Vimeo video in pages, posts, or even the "text" widget using a super-simple shortcode.
+Embed responsive YouTube or Vimeo videos in pages, posts, or even the "text" widget using a super-simple shortcode.
 
 == Description ==
 
