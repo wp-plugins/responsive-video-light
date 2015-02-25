@@ -43,6 +43,26 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Disable Show Info</td>
+                                <td>
+                                    <input name="rvl_options_field[disable_youtube_showinfo]"
+                                        id="rvl-youtube-showinfo"
+                                        type="checkbox" value="1" 
+                                        {% if disable_youtube_showinfo %}checked="checked"{% endif %} />
+                                </td>
+                                <td><label for="rvl-youtube-showinfo">
+                                    Disable title and extra info before&nbsp;playback</label></td>
+                                <td><code>showinfo</code>, <code>noshowinfo</code></td>
+                                <td>
+                                    Whether or not to allow the player to display information
+                                    like the video title and uploader before the video starts playing.
+                                    By default, the info is displayed.  <strong>NOTE</strong>: This option
+                                    is slightly at odds with <code>modestbranding</code>.  If you disable
+                                    showinfo, YouTube branding will be shown regardless of the 
+                                    modestbranding&nbsp;setting.
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Modest Branding</td>
                                 <td>
                                     <input name="rvl_options_field[enable_modest_branding]"

@@ -3,7 +3,7 @@ Contributors: billknechtel, kburgoine
 Tags: youtube, you tube, vimeo, responsive, video, embed
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ Features Include:
 *    The ability to add one or more videos directly in to a page, post or any of your own custom post types using the video URL (not the embed code) or ID and a short code. Currently YouTube and Vimeo are supported, using the [responsive_youtube] and [responsive_vimeo] shortcodes, respectively.
 *    Fully responsive so the video's viewport will fill the width of the containing area and scale depending on screen size. No need to set a width and height, just set the width of the div your content sits in.
 *    YouTube videos have a shortcode attribute that lets you turn "related videos" on or off. "Related Videos" are the links that tile across the viewport when a video has completed playing. 
-*    YouTube videos also support light and dark themes, autoplaying, and modest branding which removes most YouTube imagery.
+*    YouTube videos also support light and dark themes, autoplaying, showinfo, and modest branding (which removes most YouTube brand imagery).
 *    Vimeo videos can have the video portrait, title, and byline shut off.
 *    A comprehensive settings screen which explains all the options and shows you the syntax of the shortcodes.
 
@@ -82,6 +82,9 @@ setting it to "transparent" will fix the problem.
 Use anonymous svn to get a current trunk copy, or build a patch against your current install, then email the patch to me for consideration.
 
 == Changelog ==
+
+= 1.3.2 =
+* Add showinfo parameter support
 
 = 1.3.1 =
 * Added missing admin screen CSS.  D'oh!

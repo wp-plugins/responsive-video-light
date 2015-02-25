@@ -3,7 +3,7 @@
  * Plugin Name: Responsive Video Light
  * Plugin URI: http://bitpusher.tk/responsive-video-light
  * Description: A plugin to add responsive videos to pages and posts
- * Version: 1.3.1
+ * Version: 1.3.2
  * Author: Bill Knechtel
  * Author URI: http://bitpusher.tk
  * License: GPLv2
@@ -152,6 +152,9 @@ function responsive_youtube_shortcode($attributes, $content = null)
             case 'disable_youtube_related_videos':
                 $query_string['rel'] = '0';
                 break;
+            case 'disable_youtube_showinfo':
+                $query_string['showinfo'] = '0';
+                break;
             case 'enable_youtube_autoplay':
                 $query_string['autoplay'] = '1';
                 break;
@@ -189,6 +192,12 @@ function responsive_youtube_shortcode($attributes, $content = null)
                 break;
             case 'norel':
                 $query_string['rel'] = '0';
+                break;
+            case 'showinfo':
+                $query_string['showinfo'] = '1';
+                break;
+            case 'noshowinfo':
+                $query_string['showinfo'] = '0';
                 break;
             case 'wmode_opaque':
                 $query_string['wmode'] = 'opaque';
